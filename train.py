@@ -249,9 +249,9 @@ def main():
     del weights['fc.bias']
     model.load_state_dict(weights, strict=False)
     model.to(device)
-    weights = [0.7, 0.3]
-    class_weights = torch.FloatTensor(weights).cuda()
-    loss_fn = nn.CrossEntropyLoss(weight=class_weights)
+    #weights = [0.7, 0.3]
+    #class_weights = torch.FloatTensor(weights).cuda()
+    loss_fn = nn.CrossEntropyLoss()#weight=class_weights
     optimizer = torch.optim.Adam(params=model.parameters(), lr=args.lr)
 
     train_1 = train_model(model=model, criterion=loss_fn,
