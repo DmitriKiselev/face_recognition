@@ -70,7 +70,7 @@ def evaluate(true_path, pred_path):
     y_true = true['Class'].to_list()
     y_pred = pred['Class'].to_list()
     for i in range(len(y_true)):
-        if y_pred[i] == 'Normal':
+        if y_pred[i] == 'Dmitry':
             y_pred[i] = 0
         else:
             y_pred[i] = 1
