@@ -222,16 +222,16 @@ def main():
                                            transforms.RandomRotation(10),
                                            transforms.ToTensor(),
                                            transforms.Normalize
-                                           ((0.485, 0.456, 0.406),
-                                            (0.229, 0.224, 0.225))])
+                                           ((0.5, 0.5, 0.5),
+                                            (0.5, 0.5, 0.5))])
 
     test_transforms = transforms.Compose([transforms.Resize((
                                           args.resize_size[0],
                                           args.resize_size[1])),
                                           transforms.ToTensor(),
                                           transforms.Normalize
-                                          ((0.485, 0.456, 0.406),
-                                            (0.229, 0.224, 0.225))])
+                                          ((0.5, 0.5, 0.5),
+                                            (0.5, 0.5, 0.5))])
 
     data_paths = {'train': args.dir_to_train, 'val': args.dir_to_val}
 
@@ -249,9 +249,9 @@ def main():
     del weights['fc.bias']
     model.load_state_dict(weights, strict=False)
     model.to(device)
-    #weights = [0.7, 0.3]
-    #class_weights = torch.FloatTensor(weights).cuda()
-    loss_fn = nn.CrossEntropyLoss()#weight=class_weights
+    weights = [0.4, 0.6]
+    class_weights = torch.FloatTensor(weights).cuda()
+    loss_fn = nn.CrossEntropyLoss(weight=class_weights)
     optimizer = torch.optim.Adam(params=model.parameters(), lr=args.lr)
 
     train_1 = train_model(model=model, criterion=loss_fn,
